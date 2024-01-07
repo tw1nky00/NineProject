@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Basic class ofr all the counters
+/// </summary>
 public class BaseCounter : MonoBehaviour, IKitchenObjectParent
 {
 

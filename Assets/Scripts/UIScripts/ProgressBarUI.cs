@@ -7,7 +7,11 @@ public class ProgressBarUI : MonoBehaviour
     /// Counter which the canvas belongs to
     /// </summary>
     [SerializeField] private CuttingCounter cuttingCounter; 
+    /// <summary>
+    /// The reference to a bar image
+    /// </summary>
     [SerializeField] private Image barImage;
+
 
     private void Start()
     {
@@ -17,6 +21,7 @@ public class ProgressBarUI : MonoBehaviour
 
         Hide();
     }
+
 
     private void CuttingCounter_OnProgressChanged(object sender, CuttingCounter.OnProgressChangedEventArgs e)
     {
