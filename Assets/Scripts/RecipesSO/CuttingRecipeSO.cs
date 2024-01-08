@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// The ScriptableObject of cutting recipe contains information how to cut some products
+/// </summary>
 [CreateAssetMenu()]
 public class CuttingRecipeSO : ScriptableObject
 {

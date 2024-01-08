@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// The component of trash counter
+/// </summary>
 public class TrashCounter : BaseCounter
 {
     public override void Interact(PlayerController player)

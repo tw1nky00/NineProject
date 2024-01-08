@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// A componenet of counter where player can cut and slice some products 
+/// A component of counter where player can cut and slice some products 
 /// </summary>
 public class CuttingCounter : BaseCounter, IHasProgress
 {
@@ -16,6 +16,9 @@ public class CuttingCounter : BaseCounter, IHasProgress
     public event System.EventHandler OnCut;
 
 
+    /// <summary>
+    /// Array with all the CuttingRecipes existing
+    /// </summary>
     [SerializeField] private CuttingRecipeSO[] cuttingRecipeSOArray;
 
     private int _cuttingProgress; // The cutting progress
@@ -90,6 +93,7 @@ public class CuttingCounter : BaseCounter, IHasProgress
         }
     }
 
+    // Methods connected with recipes
     private bool HasRecipeWithInput(KitchenObjectSO input)
     {
         CuttingRecipeSO cuttingRecipeSO = GetCuttingRecipeSOByInput(input);

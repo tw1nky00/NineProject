@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// The component of PlayerController is responsible for controlling
+/// </summary>
 public class PlayerController : MonoBehaviour, IKitchenObjectParent
 {
     /// <summary>

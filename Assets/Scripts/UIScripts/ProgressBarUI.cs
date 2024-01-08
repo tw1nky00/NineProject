@@ -6,11 +6,11 @@ public class ProgressBarUI : MonoBehaviour
     /// <summary>
     /// Counter which the canvas belongs to
     /// </summary>
+
     [SerializeField] private GameObject hasProgressGameObject;
     [SerializeField] private Image barImage;
 
     private IHasProgress hasProgress;
-
 
     private void Start()
     {
@@ -26,6 +26,7 @@ public class ProgressBarUI : MonoBehaviour
 
         Hide();
     }
+
 
     private void HasProgress_OnProgressChanged(object sender, IHasProgress.OnProgressChangedEventArgs e)
     {

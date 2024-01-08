@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// The component that is responsible for making the object look at the camera
+/// </summary>
 public class LookAtCamera : MonoBehaviour
 {
     /// <summary>
@@ -14,6 +17,9 @@ public class LookAtCamera : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// LookAt mode
+    /// </summary>
     [SerializeField] private LookAtMode lookAtMode;
 
 

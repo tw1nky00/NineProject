@@ -15,6 +15,7 @@ public class CinemachineCameraController : MonoBehaviour
     /// </summary>
     [SerializeField] private CinemachineVirtualCamera _virtualCamera;
 
+
     private void Update()
     {
         _virtualCamera.gameObject.SetActive(_player.IsWalking);
