@@ -31,7 +31,7 @@ public class BaseCounter : MonoBehaviour, IKitchenObjectParent
     /// </summary>
     public virtual void InteractAlternate(PlayerController player)
     {
-        Debug.LogError("Not able to interact alternatively with BaseCounter instance (but you can interact with children)");
+        // Debug.LogError("Not able to interact alternatively with BaseCounter instance (but you can interact with children)");
     }
 
     public void ClearKitchenObject()
