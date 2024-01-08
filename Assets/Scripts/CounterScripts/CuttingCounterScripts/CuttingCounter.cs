@@ -3,24 +3,18 @@
 /// <summary>
 /// A component of counter where player can cut and slice some products 
 /// </summary>
-public class CuttingCounter : BaseCounter
+public class CuttingCounter : BaseCounter, IHasProgress
 {
+    /// <summary>
+    /// Occurs when the cutting progress is changed
+    /// </summary>
+    public event System.EventHandler<IHasProgress.OnProgressChangedEventArgs> OnProgressChanged;
+
     /// <summary>
     /// Occurs when player cuts smth
     /// </summary>
     public event System.EventHandler OnCut;
-    /// <summary>
-    /// Occurs when the cutting progress is changed
-    /// </summary>
-    public event System.EventHandler<OnProgressChangedEventArgs> OnProgressChanged;
-    /// <summary>
-    /// EventArgs that contain information about new cutting progress value
-    /// </summary>
-    public class OnProgressChangedEventArgs : System.EventArgs
-    {
-        public float progressNormalized;
-    }
-    
+
 
     /// <summary>
     /// Array with all the CuttingRecipes existing
@@ -46,7 +40,7 @@ public class CuttingCounter : BaseCounter
 
                     CuttingRecipeSO cuttingRecipeSO = GetCuttingRecipeSOByInput(KitchenObject.KitchenObjectSO);
 
-                    OnProgressChanged?.Invoke(this, new OnProgressChangedEventArgs
+                    OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs
                     {
                         progressNormalized = (float)_cuttingProgress / cuttingRecipeSO.CuttingProgressMax
                     });
@@ -82,7 +76,7 @@ public class CuttingCounter : BaseCounter
 
             CuttingRecipeSO cuttingRecipeSO = GetCuttingRecipeSOByInput(KitchenObject.KitchenObjectSO);
 
-            OnProgressChanged?.Invoke(this, new OnProgressChangedEventArgs
+            OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs
             {
                 progressNormalized = (float)_cuttingProgress / cuttingRecipeSO.CuttingProgressMax
             });
