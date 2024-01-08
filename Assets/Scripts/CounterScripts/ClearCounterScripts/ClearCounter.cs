@@ -5,9 +5,6 @@ using UnityEngine;
 /// </summary>
 public class ClearCounter : BaseCounter
 {
-    private KitchenObjectSO kitchenObjectSO;
-    
-
     public override void Interact(PlayerController player)
     {
         if(!HasKitchenObject)
