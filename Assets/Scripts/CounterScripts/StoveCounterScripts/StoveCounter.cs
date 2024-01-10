@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 /// <summary>
@@ -6,7 +5,7 @@ using UnityEngine;
 /// </summary>
 public class StoveCounter : BaseCounter, IHasProgress
 {
-    public event EventHandler<IHasProgress.OnProgressChangedEventArgs> OnProgressChanged;
+    public event System.EventHandler<IHasProgress.OnProgressChangedEventArgs> OnProgressChanged;
 
     /// <summary>
     /// Occurs when the state of StoveCounter is changed
@@ -154,6 +153,25 @@ public class StoveCounter : BaseCounter, IHasProgress
             if (player.HasKitchenObject)
             {
                 // Player is carrying something
+
+                if (player.KitchenObject.TryGetPlate(out PlateKitchenObject plate))
+                {
+                    // Player is holding a plate
+
+                    if (plate.TryAddIngridient(this.KitchenObject.KitchenObjectSO))
+                    {
+                        this.KitchenObject.DestroySelf();
+
+                        // reseting the idle state
+                        _state = State.Idle;
+                        OnStateChanged?.Invoke(this, new OnStateChangedEventArgs { state = _state });
+
+                        OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs
+                        {
+                            progressNormalized = 0f
+                        });
+                    }
+                }
             }
             else
             {
