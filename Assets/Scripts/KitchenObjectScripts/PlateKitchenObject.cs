@@ -6,6 +6,19 @@ using UnityEngine;
 /// </summary>
 public class PlateKitchenObject : KitchenObject
 {
+    /// <summary>
+    /// Occurs when a new ingridient added on the plate
+    /// </summary>
+    public event System.EventHandler<OnIngridientAddedEventArgs> OnIngridientAdded;
+    /// <summary>
+    /// Contains information which KitchenObjectSo was added
+    /// </summary>
+    public class OnIngridientAddedEventArgs : System.EventArgs
+    {
+        public KitchenObjectSO ingridient;
+    }
+
+
     [SerializeField] private List<KitchenObjectSO> validKitchenObjectSOList;
 
     /// <summary>
@@ -34,6 +47,12 @@ public class PlateKitchenObject : KitchenObject
         }
 
         _ingridiendsList.Add(ingridient);
+
+        OnIngridientAdded?.Invoke(this, new OnIngridientAddedEventArgs
+        {
+            ingridient = ingridient
+        });
+
         return true;
     }
 }
