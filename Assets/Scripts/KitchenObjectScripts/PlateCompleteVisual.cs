@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlateCompleteVisual : MonoBehaviour
 {
+    /// <summary>
+    /// The struct for me to get the info about the gameobject and its KitchenObjectSO easier
+    /// </summary>
     [Serializable]
     public struct KitchenObjectSO_GameObject
     {
@@ -12,7 +15,13 @@ public class PlateCompleteVisual : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// The reference to the plate which this visual belongs to
+    /// </summary>
     [SerializeField] private PlateKitchenObject plate;
+    /// <summary>
+    /// The list of KitchenObjectSO_GameObject that i need to activate when corresponding ingridient is added
+    /// </summary>
     [SerializeField] private List<KitchenObjectSO_GameObject> kitchenObjectSOGameObjectList;
 
 
@@ -22,6 +31,7 @@ public class PlateCompleteVisual : MonoBehaviour
 
         foreach (KitchenObjectSO_GameObject kitchenObjectSOGameObject in kitchenObjectSOGameObjectList)
         {
+            // Deactivating all the ingridients' visuals
             kitchenObjectSOGameObject.gameObject.SetActive(false);
         }
     }
@@ -32,6 +42,7 @@ public class PlateCompleteVisual : MonoBehaviour
         {
             if (e.ingridient == kitchenObjectSOGameObject.kitchenObjectSO)
             {
+                // Activating if the corresponding ingridient was added
                 kitchenObjectSOGameObject.gameObject.SetActive(true);
             }
         }
