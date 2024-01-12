@@ -15,8 +15,6 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
     /// An event that occurs when the player select another counter or leave the counter
     /// </summary>
     public event System.EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
-
-
     /// <summary>
     /// Information about a new counter the player's looking at
     /// </summary>
@@ -166,7 +164,10 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
         _isWalking = moveDirection != Vector3.zero;
 
         // setting forward side of our hero (i need this for his rotation)
-        transform.forward = Vector3.Slerp(transform.forward, moveDirection, rotationSpeed * Time.deltaTime);
+        if (moveDirection != Vector3.zero)
+        {
+            transform.forward = Vector3.Slerp(transform.forward, moveDirection, rotationSpeed * Time.deltaTime);
+        }
     }
     /// <summary>
     /// Contains all the code that is responsible for handling collisions with interactable gameObjects is here
