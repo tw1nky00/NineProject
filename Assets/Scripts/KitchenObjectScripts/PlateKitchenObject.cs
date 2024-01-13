@@ -26,6 +26,7 @@ public class PlateKitchenObject : KitchenObject
     /// </summary>
     private List<KitchenObjectSO> _ingridiendsList;
 
+    
 
     private void Awake()
     {
@@ -55,4 +56,10 @@ public class PlateKitchenObject : KitchenObject
 
         return true;
     }
+
+
+    /// <summary>
+    /// A list of ingridients added to the plate
+    /// </summary>
+    public List<KitchenObjectSO> IngridiendsList { get => _ingridiendsList; }
 }
