@@ -403,6 +403,11 @@ PrefabInstance:
       propertyPath: hasProgressGameObject
       value: 
       objectReference: {fileID: 6084260980712589390}
+    - target: {fileID: 8986147617455203173, guid: 1d3fb30d4afd9ed49878ccf351643588,
+        type: 3}
+      propertyPath: lookAtMode
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -445,7 +450,7 @@ PrefabInstance:
     - target: {fileID: 2562745115715187543, guid: 4d5704991c60ea44e8019ca4c21db5b3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 2562745115715187543, guid: 4d5704991c60ea44e8019ca4c21db5b3,
         type: 3}
@@ -455,7 +460,7 @@ PrefabInstance:
     - target: {fileID: 2562745115715187543, guid: 4d5704991c60ea44e8019ca4c21db5b3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2562745115715187543, guid: 4d5704991c60ea44e8019ca4c21db5b3,
         type: 3}
