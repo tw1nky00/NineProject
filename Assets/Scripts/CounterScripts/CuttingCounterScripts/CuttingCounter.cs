@@ -72,6 +72,13 @@ public class CuttingCounter : BaseCounter, IHasProgress
             {
                 // Player is not carrying anything
                 KitchenObject.KitchenObjectParent = player;
+
+                _cuttingProgress = 0;
+
+                OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs
+                {
+                    progressNormalized = 0
+                });
             }
         }
     }
