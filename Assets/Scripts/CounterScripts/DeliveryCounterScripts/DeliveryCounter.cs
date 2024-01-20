@@ -12,7 +12,11 @@ public class DeliveryCounter : BaseCounter
             if (player.KitchenObject.TryGetPlate(out PlateKitchenObject plate))
             {
                 // Only plates
-                plate.DestroySelf();
+
+                if (DeliveryManager.Instance.TryDeliver(plate))
+                {
+                    plate.DestroySelf();
+                }
             }
         }
     }
