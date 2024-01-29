@@ -6,6 +6,9 @@ using UnityEngine;
 /// </summary>
 public class DeliveryManager : MonoBehaviour
 {
+    /// <summary>
+    /// The only instance of DeliveryManager
+    /// </summary>
     public static DeliveryManager Instance { get; private set; }
 
 
