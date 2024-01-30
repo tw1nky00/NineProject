@@ -6,8 +6,18 @@ using UnityEngine;
 /// </summary>
 public class DeliveryManager : MonoBehaviour
 {
-    public static DeliveryManager Instance { get; private set; }
+    /// <summary>
+    /// Fired when a new recipe gets spawned
+    /// </summary>
+    public event System.EventHandler OnRecipeSpawned;
+    /// <summary>
+    /// Fired when any recipe is completed
+    /// </summary>
+    public event System.EventHandler OnRecipeCompleted;
 
+
+    public static DeliveryManager Instance { get; private set; }
+    
 
     /// <summary>
     /// List of available recipes
@@ -27,6 +37,9 @@ public class DeliveryManager : MonoBehaviour
     private float _spawnTimer;
 
 
+    public List<RecipeSO> WaitedRecipesSOList { get => _waitedRecipesSOList; }
+
+
     private void Awake()
     {
         Instance = this;
@@ -36,17 +49,23 @@ public class DeliveryManager : MonoBehaviour
     }
     private void Update()
     {
-        _spawnTimer -= Time.deltaTime;
-        if (_spawnTimer <= 0)
+        if (_waitedRecipesSOList.Count < waitedRecipesMax)
         {
-            _spawnTimer = spawnTimerMax;
-
-            if (_waitedRecipesSOList.Count < waitedRecipesMax)
+            _spawnTimer -= Time.deltaTime;
+            if (_spawnTimer <= 0)
             {
-                RecipeSO newWaitedRecipeSO = menu.AvailableRecipes[Random.Range(0, menu.AvailableRecipes.Count)];
-                _waitedRecipesSOList.Add(newWaitedRecipeSO);
+                _spawnTimer = spawnTimerMax;
 
-                Debug.Log(newWaitedRecipeSO.RecipeName);
+                if (_waitedRecipesSOList.Count < waitedRecipesMax)
+                {
+                    RecipeSO newWaitedRecipeSO = menu.AvailableRecipes[Random.Range(0, menu.AvailableRecipes.Count)];
+
+                    _waitedRecipesSOList.Add(newWaitedRecipeSO);
+                    this.OnRecipeSpawned?.Invoke(this, System.EventArgs.Empty);
+
+
+                    Debug.Log(newWaitedRecipeSO.RecipeName);
+                }
             }
         }
     }
@@ -94,6 +113,7 @@ public class DeliveryManager : MonoBehaviour
                 {
                     Debug.Log("Player has delivered the correct recipe!");
                     _waitedRecipesSOList.RemoveAt(i);
+                    OnRecipeCompleted?.Invoke(this, System.EventArgs.Empty);
                     return true;
                 }
             }

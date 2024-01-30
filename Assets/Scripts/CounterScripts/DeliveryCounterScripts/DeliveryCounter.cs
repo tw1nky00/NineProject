@@ -1,5 +1,3 @@
-using UnityEngine;
-
 /// <summary>
 /// The component of delivery counter
 /// </summary>
