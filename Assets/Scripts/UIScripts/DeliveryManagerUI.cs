@@ -55,6 +55,9 @@ public class DeliveryManagerUI : MonoBehaviour
 
             GameObject currentRecipeBlockSpawned = Instantiate(recipeTemplate, container.transform);
             currentRecipeBlockSpawned.SetActive(true);
+
+            // Setting the name to the block
+            currentRecipeBlockSpawned.GetComponent<DeliveryManagerSingleUI>().SetRecipeSO(waitedRecipe);
         }
     }
 }
