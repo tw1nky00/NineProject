@@ -621,6 +621,7 @@ Transform:
   - {fileID: 770252089}
   - {fileID: 1977994888}
   - {fileID: 1739546467}
+  - {fileID: 520104408}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &329851706
@@ -1234,6 +1235,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43c9c069846ceaa4895cb9b45b463ef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &520104407
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 520104408}
+  - component: {fileID: 520104409}
+  m_Layer: 0
+  m_Name: Sound Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &520104408
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 520104407}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 305829889}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &520104409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 520104407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3d7f0c028b5eaf41b108ac7e1894258, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClipReferencesSO: {fileID: 11400000, guid: 1bb45ae95a830f241ad5f8e4f4a8c699,
+    type: 2}
 --- !u!1001 &589952347
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3241,7 +3288,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e08c0d5567f11d54da686d7e803ba41e, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.31
+  m_Volume: 0.074
   m_Pitch: 1
   Loop: 0
   Mute: 0
