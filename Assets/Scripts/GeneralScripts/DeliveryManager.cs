@@ -6,8 +6,17 @@ using UnityEngine;
 /// </summary>
 public class DeliveryManager : MonoBehaviour
 {
+    /// <summary>
+    /// Occurs when a new recipe is spawned
+    /// </summary>
+    public event System.EventHandler OnRecipeSpawned;
+    /// <summary>
+    /// Occurs when the recipe is successefully delivered
+    /// </summary>
+    public event System.EventHandler OnRecipeCompleted;
+
+
     public static DeliveryManager Instance { get; private set; }
-    
 
     /// <summary>
     /// List of available recipes
@@ -52,9 +61,6 @@ public class DeliveryManager : MonoBehaviour
 
                     _waitedRecipesSOList.Add(newWaitedRecipeSO);
                     this.OnRecipeSpawned?.Invoke(this, System.EventArgs.Empty);
-
-
-                    Debug.Log(newWaitedRecipeSO.RecipeName);
                 }
             }
         }
