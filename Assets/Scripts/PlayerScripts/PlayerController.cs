@@ -12,9 +12,15 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
 
 
     /// <summary>
+    /// Occurs when the player has picked up a KitchenObject
+    /// </summary>
+    public event System.EventHandler OnKitchenObjectPickedUp;
+    /// <summary>
     /// An event that occurs when the player select another counter or leave the counter
     /// </summary>
     public event System.EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
+
+
     /// <summary>
     /// Information about a new counter the player's looking at
     /// </summary>
@@ -72,7 +78,17 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
     /// </summary>
     public bool IsWalking { get => _isWalking; }
 
-    public KitchenObject KitchenObject { get => _kitchenObject; set => _kitchenObject = value; }
+    public KitchenObject KitchenObject
+    {
+        get => _kitchenObject;
+        set
+        {
+            _kitchenObject = value;
+
+            if (_kitchenObject != null)
+                OnKitchenObjectPickedUp?.Invoke(this, System.EventArgs.Empty);
+        }
+    }
     public Transform KitchenObjectFollowTransform { get => kitchenObjectHoldPoint; }
     public bool HasKitchenObject { get => _kitchenObject != null; }
 

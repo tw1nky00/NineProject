@@ -13,7 +13,6 @@ public class CuttingCounterVisual : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
     }
-
     private void Start()
     {
         cuttingCounter.OnCut += CuttingCounter_OnCut;

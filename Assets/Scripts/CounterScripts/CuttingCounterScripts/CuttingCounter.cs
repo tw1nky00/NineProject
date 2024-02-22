@@ -5,11 +5,12 @@
 /// </summary>
 public class CuttingCounter : BaseCounter, IHasProgress
 {
+    public static event System.EventHandler OnAnyCut;
+
     /// <summary>
     /// Occurs when the cutting progress is changed
     /// </summary>
     public event System.EventHandler<IHasProgress.OnProgressChangedEventArgs> OnProgressChanged;
-
     /// <summary>
     /// Occurs when player cuts smth
     /// </summary>
@@ -90,6 +91,7 @@ public class CuttingCounter : BaseCounter, IHasProgress
 
             _cuttingProgress++;
             OnCut?.Invoke(this, System.EventArgs.Empty);
+            OnAnyCut?.Invoke(this, System.EventArgs.Empty);
 
             CuttingRecipeSO cuttingRecipeSO = GetCuttingRecipeSOByInput(KitchenObject.KitchenObjectSO);
 
