@@ -3,6 +3,18 @@
 /// </summary>
 public class DeliveryCounter : BaseCounter
 {
+    /// <summary>
+    /// The only instance of DeliveryCounter
+    /// </summary>
+    public static DeliveryCounter Instance { get; private set; }
+
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+
     public override void Interact(PlayerController player)
     {
         if (player.HasKitchenObject)

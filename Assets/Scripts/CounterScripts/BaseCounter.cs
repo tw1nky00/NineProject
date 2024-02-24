@@ -1,10 +1,15 @@
 using UnityEngine;
 
 /// <summary>
-/// Basic class ofr all the counters
+/// Basic class of all the counters
 /// </summary>
 public class BaseCounter : MonoBehaviour, IKitchenObjectParent
 {
+    /// <summary>
+    /// Occurs when a KithcenObject is placed on the counter
+    /// </summary>
+    public static event System.EventHandler OnAnyKitchenObjectDropped;
+
 
     /// <summary>
     /// The transform of the top of the counter (the parent for a kitchen object)
@@ -17,7 +22,17 @@ public class BaseCounter : MonoBehaviour, IKitchenObjectParent
     private KitchenObject _kitchenObject;
 
 
-    public KitchenObject KitchenObject { get => _kitchenObject; set => _kitchenObject = value; }
+    public KitchenObject KitchenObject
+    {
+        get => _kitchenObject;
+        set
+        {
+            _kitchenObject = value;
+
+            if (_kitchenObject != null)
+                OnAnyKitchenObjectDropped?.Invoke(this, System.EventArgs.Empty);
+        }
+    }
     public Transform KitchenObjectFollowTransform { get => counterTopPoint; }
     public bool HasKitchenObject { get => _kitchenObject != null; }
 

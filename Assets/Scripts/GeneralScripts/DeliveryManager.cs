@@ -14,8 +14,19 @@ public class DeliveryManager : MonoBehaviour
     /// Occurs when the recipe is successefully delivered
     /// </summary>
     public event System.EventHandler OnRecipeCompleted;
+    /// <summary>
+    /// Occurs when the recipe that was ordered is delivered
+    /// </summary>
+    public event System.EventHandler OnRecipeSuccessed;
+    /// <summary>
+    /// Occurs when the recipe that was not ordered is delivered
+    /// </summary>
+    public event System.EventHandler OnRecipeFailed;
 
 
+    /// <summary>
+    /// The only instance of the DeliveryManager
+    /// </summary>
     public static DeliveryManager Instance { get; private set; }
 
     /// <summary>
@@ -36,6 +47,9 @@ public class DeliveryManager : MonoBehaviour
     private float _spawnTimer;
 
 
+    /// <summary>
+    /// The list of recipes which are ordered right now
+    /// </summary>
     public List<RecipeSO> WaitedRecipesSOList { get => _waitedRecipesSOList; }
 
 
@@ -86,9 +100,10 @@ public class DeliveryManager : MonoBehaviour
 
                 foreach (KitchenObjectSO recipeIngridient in recipe.IngridientsList)
                 {
-                    bool isIngridientFound = false;
-
                     // Cycling through all ingridients in the Recipe
+
+                    bool isIngridientFound = false;
+                    
                     foreach (KitchenObjectSO plateIngridient in plate.IngridiendsList)
                     {
                         // Cycling through all ingridients at the plate
@@ -107,9 +122,11 @@ public class DeliveryManager : MonoBehaviour
 
                 if (plateContentMatchesRecipe)
                 {
-                    Debug.Log("Player has delivered the correct recipe!");
                     _waitedRecipesSOList.RemoveAt(i);
+
                     OnRecipeCompleted?.Invoke(this, System.EventArgs.Empty);
+                    OnRecipeSuccessed?.Invoke(this, System.EventArgs.Empty);
+
                     return true;
                 }
             }
@@ -117,7 +134,7 @@ public class DeliveryManager : MonoBehaviour
 
         // No matches at all
         // Player aint't delivered correct recipe
-        Debug.Log("Player aint't delivered correct recipe");
+        OnRecipeFailed?.Invoke(this, System.EventArgs.Empty);
 
         return false;
     }
