@@ -26,9 +26,9 @@ public class GeneralGameManager : MonoBehaviour
     public event System.EventHandler OnStateChanged;
 
 
-    [SerializeField] private float waitingToStartTimerValue = 5f;
-    [SerializeField] private float countdownToStartTimerValue = 4f;
-    [SerializeField] private float gamePlayingTimerValue = 10f;
+    [SerializeField] private float waitingToStartTimerValue;
+    [SerializeField] private float countdownToStartTimerValue;
+    [SerializeField] private float gamePlayingTimerValue;
 
 
     private State _state;
@@ -46,7 +46,18 @@ public class GeneralGameManager : MonoBehaviour
     /// Returns true if before the game timer is counting down
     /// </summary>
     public bool IsCountdown { get => _state == State.CountdownToStart; }
+    /// <summary>
+    /// Returns true if the game is over
+    /// </summary>
+    public bool IsGameOver { get => _state == State.GameOver; }
+    /// <summary>
+    /// The value of countdown timer
+    /// </summary>
     public float CountdownTimerValue { get => _countdownToStartTimer; }
+    /// <summary>
+    /// Returns normalized value of GamePlaying timer
+    /// </summary>
+    public float GamePlayingTimerValueNormalized { get => _gamePlayingTimer / gamePlayingTimerValue; }
 
 
     private void Awake()
@@ -106,5 +117,4 @@ public class GeneralGameManager : MonoBehaviour
                 break;
         }
     }
-
 }
