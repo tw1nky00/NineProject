@@ -109,6 +109,12 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
     }
     private void Update()
     {
+        if (!GeneralGameManager.Instance.IsGamePlaying)
+        {
+            _isWalking = false;
+            return;
+        }
+
         HandleMovement();
         HandleInteractions();
     }

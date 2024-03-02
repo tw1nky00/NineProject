@@ -51,6 +51,7 @@ public class DeliveryManager : MonoBehaviour
     /// The list of recipes which are ordered right now
     /// </summary>
     public List<RecipeSO> WaitedRecipesSOList { get => _waitedRecipesSOList; }
+    public int SuccessefulDeliversCount { get; private set; }
 
 
     private void Awake()
@@ -123,6 +124,8 @@ public class DeliveryManager : MonoBehaviour
                 if (plateContentMatchesRecipe)
                 {
                     _waitedRecipesSOList.RemoveAt(i);
+
+                    SuccessefulDeliversCount++;
 
                     OnRecipeCompleted?.Invoke(this, System.EventArgs.Empty);
                     OnRecipeSuccessed?.Invoke(this, System.EventArgs.Empty);
