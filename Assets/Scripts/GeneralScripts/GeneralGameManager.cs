@@ -24,6 +24,14 @@ public class GeneralGameManager : MonoBehaviour
     /// Occurs when the state of the main game timer has changed
     /// </summary>
     public event System.EventHandler OnStateChanged;
+    /// <summary>
+    /// Occurs when the game has been paused
+    /// </summary>
+    public event System.EventHandler OnGamePaused;
+    /// <summary>
+    /// Occurs when the game has been unpaused
+    /// </summary>
+    public event System.EventHandler OnGameUnpaused;
 
 
     [SerializeField] private float waitingToStartTimerValue;
@@ -138,10 +146,12 @@ public class GeneralGameManager : MonoBehaviour
         if (_isGamePaused)
         {
             Time.timeScale = 0f;
+            OnGamePaused?.Invoke(this, System.EventArgs.Empty);
         }
         else
         {
             Time.timeScale = 1f;
+            OnGameUnpaused?.Invoke(this, System.EventArgs.Empty);
         }
     }
 }
