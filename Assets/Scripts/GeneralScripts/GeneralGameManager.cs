@@ -37,6 +37,8 @@ public class GeneralGameManager : MonoBehaviour
     private float _countdownToStartTimer;
     private float _gamePlayingTimer;
 
+    private bool _isGamePaused;
+
 
     /// <summary>
     /// Returns true if the game is being played (not being prepared to play or gameover)  
@@ -72,6 +74,10 @@ public class GeneralGameManager : MonoBehaviour
         Debug.Log(_state);
 
         Instance = this;
+    }
+    private void Start()
+    {
+        GameInputManager.Instance.OnPauseAction += GameInputManager_OnPauseAction;
     }
     private void Update()
     {
@@ -115,6 +121,27 @@ public class GeneralGameManager : MonoBehaviour
 
             case State.GameOver:
                 break;
+        }
+    }
+
+
+    private void GameInputManager_OnPauseAction(object sender, System.EventArgs e)
+    {
+        TogglePauseGame();
+    }
+
+
+    private void TogglePauseGame()
+    {
+        _isGamePaused = !_isGamePaused;
+
+        if (_isGamePaused)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
         }
     }
 }
