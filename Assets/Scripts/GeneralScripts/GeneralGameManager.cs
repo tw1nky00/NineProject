@@ -24,6 +24,14 @@ public class GeneralGameManager : MonoBehaviour
     /// Occurs when the state of the main game timer has changed
     /// </summary>
     public event System.EventHandler OnStateChanged;
+    /// <summary>
+    /// Occurs when the game has been paused
+    /// </summary>
+    public event System.EventHandler OnGamePaused;
+    /// <summary>
+    /// Occurs when the game has been unpaused
+    /// </summary>
+    public event System.EventHandler OnGameUnpaused;
 
 
     [SerializeField] private float waitingToStartTimerValue;
@@ -36,6 +44,8 @@ public class GeneralGameManager : MonoBehaviour
     private float _waitingToStartTimer;
     private float _countdownToStartTimer;
     private float _gamePlayingTimer;
+
+    private bool _isGamePaused;
 
 
     /// <summary>
@@ -72,6 +82,10 @@ public class GeneralGameManager : MonoBehaviour
         Debug.Log(_state);
 
         Instance = this;
+    }
+    private void Start()
+    {
+        GameInputManager.Instance.OnPauseAction += GameInputManager_OnPauseAction;
     }
     private void Update()
     {
@@ -115,6 +129,29 @@ public class GeneralGameManager : MonoBehaviour
 
             case State.GameOver:
                 break;
+        }
+    }
+
+
+    private void GameInputManager_OnPauseAction(object sender, System.EventArgs e)
+    {
+        TogglePauseGame();
+    }
+
+
+    public void TogglePauseGame()
+    {
+        _isGamePaused = !_isGamePaused;
+
+        if (_isGamePaused)
+        {
+            Time.timeScale = 0f;
+            OnGamePaused?.Invoke(this, System.EventArgs.Empty);
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            OnGameUnpaused?.Invoke(this, System.EventArgs.Empty);
         }
     }
 }

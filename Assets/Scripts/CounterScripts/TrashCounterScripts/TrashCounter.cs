@@ -11,6 +11,12 @@ public class TrashCounter : BaseCounter
     public static event System.EventHandler OnAnyThrownAway;
 
 
+    public static new void ResetStaticData()
+    {
+        OnAnyThrownAway = null;
+    }
+
+
     public override void Interact(PlayerController player)
     {
         if (player.HasKitchenObject)

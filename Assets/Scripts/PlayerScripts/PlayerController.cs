@@ -47,10 +47,6 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
     /// </summary>
     [SerializeField] private LayerMask countersLayerMask;
     /// <summary>
-    /// A reference to the GameInput instance
-    /// </summary>
-    [SerializeField] private GameInput gameInputManager;
-    /// <summary>
     /// The transform of the point where the kitchen object, that belongs to the player, is
     /// </summary>
     [SerializeField] private Transform kitchenObjectHoldPoint;
@@ -92,6 +88,8 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
     public Transform KitchenObjectFollowTransform { get => kitchenObjectHoldPoint; }
     public bool HasKitchenObject { get => _kitchenObject != null; }
 
+    private GameInputManager InputManager { get => GameInputManager.Instance; }
+
 
     private void Awake()
     {
@@ -104,8 +102,8 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
     }
     private void Start()
     {
-        gameInputManager.OnInteractAction += GameInputManager_OnInteractAction;
-        gameInputManager.OnInteractAlternateAction += GameInputManager_OnInteractAlternateAction;
+        InputManager.OnInteractAction += GameInputManager_OnInteractAction;
+        InputManager.OnInteractAlternateAction += GameInputManager_OnInteractAlternateAction;
     }
     private void Update()
     {
@@ -125,7 +123,7 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
     /// </summary>
     private void HandleMovement()
     {
-        var inputVector = gameInputManager.GetMovementVectorNormalized();
+        var inputVector = InputManager.GetMovementVectorNormalized();
         var moveDirection = new Vector3(inputVector.x, 0f, inputVector.y); // direction to move
 
         // some float values about player
@@ -196,7 +194,7 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
     /// </summary>
     private void HandleInteractions()
     {
-        var inputVector = gameInputManager.GetMovementVectorNormalized();
+        var inputVector = InputManager.GetMovementVectorNormalized();
         var moveDirection = new Vector3(inputVector.x, 0f, inputVector.y); // direction to move
 
         // saving direction if it's not zero vector
