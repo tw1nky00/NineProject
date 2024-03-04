@@ -139,7 +139,7 @@ public class GeneralGameManager : MonoBehaviour
     }
 
 
-    private void TogglePauseGame()
+    public void TogglePauseGame()
     {
         _isGamePaused = !_isGamePaused;
 

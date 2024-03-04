@@ -37,6 +37,12 @@ public class BaseCounter : MonoBehaviour, IKitchenObjectParent
     public bool HasKitchenObject { get => _kitchenObject != null; }
 
 
+    public static void ResetStaticData()
+    {
+        OnAnyKitchenObjectDropped = null;
+    }
+
+
     /// <summary>
     /// The metod which contains the way the player interacts with counter
     /// </summary>

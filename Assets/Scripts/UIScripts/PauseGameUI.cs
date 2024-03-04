@@ -1,8 +1,26 @@
-using System.Reflection.Emit;
 using UnityEngine;
+using UnityEngine.UI;
 
+/// <summary>
+/// This component is responsible for pause menu's behaviour
+/// </summary>
 public class PauseGameUI : MonoBehaviour
 {
+    [SerializeField] private Button resumeButton;
+    [SerializeField] private Button mainMenuButton;
+
+
+    private void Awake()
+    {
+        resumeButton.onClick.AddListener(() =>
+        {
+            GeneralGameManager.Instance.TogglePauseGame();
+        });
+        mainMenuButton.onClick.AddListener(() =>
+        {
+            Loader.Load(Loader.Scene.MainMenu);
+        });
+    }
     private void Start()
     {
         GeneralGameManager.Instance.OnGamePaused += GameManager_OnGamePaused;
