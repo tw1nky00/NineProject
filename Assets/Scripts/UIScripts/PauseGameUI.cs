@@ -10,6 +10,9 @@ namespace Scripts.UIScripts
     /// </summary>
     public class PauseGameUI : MonoBehaviour
     {
+        /// <summary>
+        /// The only instance of PauseGameUI
+        /// </summary>
         public static PauseGameUI Instance { get; private set; }
 
 
@@ -55,6 +58,9 @@ namespace Scripts.UIScripts
         }
 
 
+        /// <summary>
+        /// Reveals the UI
+        /// </summary>
         public void Show()
         {
             gameObject.SetActive(true);
