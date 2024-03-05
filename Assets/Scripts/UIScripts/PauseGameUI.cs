@@ -10,15 +10,26 @@ namespace Scripts.UIScripts
     /// </summary>
     public class PauseGameUI : MonoBehaviour
     {
+        public static PauseGameUI Instance { get; private set; }
+
+
         [SerializeField] private Button resumeButton;
+        [SerializeField] private Button optionsButton;
         [SerializeField] private Button mainMenuButton;
 
 
         private void Awake()
         {
+            Instance = this;
+
             resumeButton.onClick.AddListener(() =>
             {
                 GeneralGameManager.Instance.TogglePauseGame();
+            });
+            optionsButton.onClick.AddListener(() =>
+            {
+                OptionsUI.Instance.Show();
+                Hide();
             });
             mainMenuButton.onClick.AddListener(() =>
             {
@@ -44,7 +55,7 @@ namespace Scripts.UIScripts
         }
 
 
-        private void Show()
+        public void Show()
         {
             gameObject.SetActive(true);
         }
