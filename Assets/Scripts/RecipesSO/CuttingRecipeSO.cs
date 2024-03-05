@@ -1,16 +1,20 @@
+using Scripts.KitchenObjectScripts;
 using UnityEngine;
 
-/// <summary>
-/// The ScriptableObject of cutting recipe contains information how to cut some products
-/// </summary>
-[CreateAssetMenu()]
-public class CuttingRecipeSO : ScriptableObject
+namespace Scripts.RecipesSO
 {
-    [SerializeField] private KitchenObjectSO input;
-    [SerializeField] private KitchenObjectSO output;
-    [SerializeField] private int cuttingProgressMax;
+    /// <summary>
+    /// The ScriptableObject of cutting recipe contains information how to cut some products
+    /// </summary>
+    [CreateAssetMenu()]
+    public class CuttingRecipeSO : ScriptableObject
+    {
+        [SerializeField] private KitchenObjectSO input;
+        [SerializeField] private KitchenObjectSO output;
+        [SerializeField] private int cuttingProgressMax;
 
-    public KitchenObjectSO Output { get => output; }
-    public KitchenObjectSO Input { get => input; }
-    public int CuttingProgressMax { get => cuttingProgressMax; }
+        public KitchenObjectSO Output { get => output; }
+        public KitchenObjectSO Input { get => input; }
+        public int CuttingProgressMax { get => cuttingProgressMax; }
+    }
 }

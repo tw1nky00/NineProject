@@ -1,64 +1,69 @@
+using Scripts.KitchenObjectScripts;
+using Scripts.PlayerScripts;
 using UnityEngine;
 
-/// <summary>
-/// The component of KitchenObjectParent is responsible for counters which you can place any kitchen object on
-/// </summary>
-public class ClearCounter : BaseCounter
+namespace Scripts.CounterScripts.ClearCounterScripts
 {
-    public override void Interact(PlayerController player)
+    /// <summary>
+    /// The component of KitchenObjectParent is responsible for counters which you can place any kitchen object on
+    /// </summary>
+    public class ClearCounter : BaseCounter
     {
-        if(!HasKitchenObject)
+        public override void Interact(PlayerController player)
         {
-            // There is no KitchenObject here
-            if (player.HasKitchenObject)
+            if (!HasKitchenObject)
             {
-                // Player is carrying something
-                player.KitchenObject.KitchenObjectParent = this;
+                // There is no KitchenObject here
+                if (player.HasKitchenObject)
+                {
+                    // Player is carrying something
+                    player.KitchenObject.KitchenObjectParent = this;
+                }
+                else
+                {
+                    // Player is not carrying anything
+                }
             }
             else
             {
-                // Player is not carrying anything
-            }
-        }
-        else
-        {
-            // There is KitchenObject here
+                // There is KitchenObject here
 
-            if (player.HasKitchenObject)
-            {
-                // Player is carrying something
-
-                if (player.KitchenObject.TryGetPlate(out PlateKitchenObject plate))
+                if (player.HasKitchenObject)
                 {
-                    // Player is holding a plate
+                    // Player is carrying something
 
-                    if (plate.TryAddIngridient(this.KitchenObject.KitchenObjectSO))
+                    if (player.KitchenObject.TryGetPlate(out PlateKitchenObject plate))
                     {
-                        this.KitchenObject.DestroySelf();
+                        // Player is holding a plate
+
+                        if (plate.TryAddIngridient(this.KitchenObject.KitchenObjectSO))
+                        {
+                            this.KitchenObject.DestroySelf();
+                        }
+                    }
+                    else
+                    {
+                        // Player is not carrying a plate but something else
+
+                        if (this.KitchenObject.TryGetPlate(out plate))
+                        {
+                            if (plate.TryAddIngridient(player.KitchenObject.KitchenObjectSO))
+                            {
+                                player.KitchenObject.DestroySelf();
+                            }
+                        }
                     }
                 }
                 else
                 {
-                    // Player is not carrying a plate but something else
-
-                    if (this.KitchenObject.TryGetPlate(out plate))
-                    {
-                        if (plate.TryAddIngridient(player.KitchenObject.KitchenObjectSO))
-                        {
-                            player.KitchenObject.DestroySelf();
-                        }
-                    }
+                    // Player is not carrying anything
+                    KitchenObject.KitchenObjectParent = player;
                 }
             }
-            else
-            {
-                // Player is not carrying anything
-                KitchenObject.KitchenObjectParent = player;
-            }
         }
-    }
-    public override void InteractAlternate(PlayerController player)
-    {
-        Debug.Log("Does nothing");
+        public override void InteractAlternate(PlayerController player)
+        {
+            Debug.Log("Does nothing");
+        }
     }
 }

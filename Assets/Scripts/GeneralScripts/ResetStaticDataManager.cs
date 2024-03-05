@@ -1,11 +1,17 @@
+using Scripts.CounterScripts.CuttingCounterScripts;
+using Scripts.CounterScripts.TrashCounterScripts;
+using Scripts.CounterScripts;
 using UnityEngine;
 
-public class ResetStaticDataManager : MonoBehaviour
+namespace Scripts.GeneralScripts
 {
-    private void Awake()
+    public class ResetStaticDataManager : MonoBehaviour
     {
-        BaseCounter.ResetStaticData();
-        CuttingCounter.ResetStaticData();
-        TrashCounter.ResetStaticData();
+        private void Awake()
+        {
+            BaseCounter.ResetStaticData();
+            CuttingCounter.ResetStaticData();
+            TrashCounter.ResetStaticData();
+        }
     }
 }

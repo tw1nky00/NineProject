@@ -1,25 +1,30 @@
 using UnityEngine;
 
-public class CuttingCounterVisual : MonoBehaviour
+namespace Scripts.CounterScripts.CuttingCounterScripts
 {
-    private const string CUT = "Cut";
-
-
-    [SerializeField] private CuttingCounter cuttingCounter;
-
-    private Animator _animator;
-
-    private void Awake()
+    public class CuttingCounterVisual : MonoBehaviour
     {
-        _animator = GetComponent<Animator>();
-    }
-    private void Start()
-    {
-        cuttingCounter.OnCut += CuttingCounter_OnCut;
-    }
+        private const string CUT = "Cut";
 
-    private void CuttingCounter_OnCut(object sender, System.EventArgs e)
-    {
-        _animator.SetTrigger(CUT);
+
+        [SerializeField] private CuttingCounter cuttingCounter;
+
+        private Animator _animator;
+
+
+        private void Awake()
+        {
+            _animator = GetComponent<Animator>();
+        }
+        private void Start()
+        {
+            cuttingCounter.OnCut += CuttingCounter_OnCut;
+        }
+
+
+        private void CuttingCounter_OnCut(object sender, System.EventArgs e)
+        {
+            _animator.SetTrigger(CUT);
+        }
     }
 }

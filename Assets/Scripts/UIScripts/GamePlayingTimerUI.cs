@@ -1,48 +1,52 @@
+using Scripts.GeneralScripts;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GamePlayingTimerUI : MonoBehaviour
+namespace Scripts.UIScripts
 {
-    [SerializeField] private Image timerImage;
-
-
-    private GeneralGameManager GameManager { get => GeneralGameManager.Instance; }
-
-
-    private void Start()
+    public class GamePlayingTimerUI : MonoBehaviour
     {
-        GameManager.OnStateChanged += GameManager_OnStateChanged;
-
-        Hide();
-    }
-    private void Update()
-    {
-        if (gameObject.activeInHierarchy && GameManager.IsGamePlaying)
-        {
-            timerImage.fillAmount = GameManager.GamePlayingTimerValueNormalized;
-        }
-    }
+        [SerializeField] private Image timerImage;
 
 
-    private void GameManager_OnStateChanged(object sender, System.EventArgs e)
-    {
-        if (GameManager.IsGamePlaying)
+        private GeneralGameManager GameManager { get => GeneralGameManager.Instance; }
+
+
+        private void Start()
         {
-            Show();
-        }
-        else
-        {
+            GameManager.OnStateChanged += GameManager_OnStateChanged;
+
             Hide();
         }
-    }
+        private void Update()
+        {
+            if (gameObject.activeInHierarchy && GameManager.IsGamePlaying)
+            {
+                timerImage.fillAmount = GameManager.GamePlayingTimerValueNormalized;
+            }
+        }
 
 
-    private void Show()
-    {
-        gameObject.SetActive(true);
-    }
-    private void Hide()
-    {
-        gameObject.SetActive(false);
+        private void GameManager_OnStateChanged(object sender, System.EventArgs e)
+        {
+            if (GameManager.IsGamePlaying)
+            {
+                Show();
+            }
+            else
+            {
+                Hide();
+            }
+        }
+
+
+        private void Show()
+        {
+            gameObject.SetActive(true);
+        }
+        private void Hide()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

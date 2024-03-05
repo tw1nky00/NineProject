@@ -1,31 +1,35 @@
+using Scripts.GeneralScripts;
 using UnityEngine;
 
-/// <summary>
-/// Responsible for player's sounds
-/// </summary>
-public class PlayerSound : MonoBehaviour
+namespace Scripts.PlayerScripts
 {
-    [SerializeField] private float footstepTimerMax = 0.1f;
-
-    private PlayerController _playerController;
-
-    private float _footstepTimer;
-
-
-    private void Awake()
+    /// <summary>
+    /// Responsible for player's sounds
+    /// </summary>
+    public class PlayerSound : MonoBehaviour
     {
-        _playerController = GetComponent<PlayerController>();
-    }
-    private void Update()
-    {
-        _footstepTimer -= Time.deltaTime;
-        if (_footstepTimer <= 0f)
+        [SerializeField] private float footstepTimerMax = 0.1f;
+
+        private PlayerController _playerController;
+
+        private float _footstepTimer;
+
+
+        private void Awake()
         {
-            _footstepTimer = footstepTimerMax;
-
-            if(_playerController.IsWalking)
+            _playerController = GetComponent<PlayerController>();
+        }
+        private void Update()
+        {
+            _footstepTimer -= Time.deltaTime;
+            if (_footstepTimer <= 0f)
             {
-                SoundManager.Instance.PlayFootsteps(_playerController.transform.position);
+                _footstepTimer = footstepTimerMax;
+
+                if (_playerController.IsWalking)
+                {
+                    SoundManager.Instance.PlayFootsteps(_playerController.transform.position);
+                }
             }
         }
     }

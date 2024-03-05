@@ -1,48 +1,52 @@
+using Scripts.GeneralScripts;
 using TMPro;
 using UnityEngine;
 
-public class GameStartCountdownUI : MonoBehaviour
+namespace Scripts.UIScripts
 {
-    [SerializeField] private TextMeshProUGUI countdownText;
-
-
-    private GeneralGameManager GameManager { get => GeneralGameManager.Instance; }
-
-
-    private void Start()
+    public class GameStartCountdownUI : MonoBehaviour
     {
-        GameManager.OnStateChanged += GameManager_OnStateChanged;
-
-        Hide();
-    }
-    private void Update()
-    {
-        if (gameObject.activeInHierarchy && GameManager.IsCountdown)
-        {
-            countdownText.text = Mathf.Ceil(GameManager.CountdownTimerValue).ToString();
-        }
-    }
+        [SerializeField] private TextMeshProUGUI countdownText;
 
 
-    private void GameManager_OnStateChanged(object sender, System.EventArgs e)
-    {
-        if (GameManager.IsCountdown)
+        private GeneralGameManager GameManager { get => GeneralGameManager.Instance; }
+
+
+        private void Start()
         {
-            Show();
-        }
-        else
-        {
+            GameManager.OnStateChanged += GameManager_OnStateChanged;
+
             Hide();
         }
-    }
+        private void Update()
+        {
+            if (gameObject.activeInHierarchy && GameManager.IsCountdown)
+            {
+                countdownText.text = Mathf.Ceil(GameManager.CountdownTimerValue).ToString();
+            }
+        }
 
 
-    private void Show()
-    {
-        gameObject.SetActive(true);
-    }
-    private void Hide()
-    {
-        gameObject.SetActive(false);
+        private void GameManager_OnStateChanged(object sender, System.EventArgs e)
+        {
+            if (GameManager.IsCountdown)
+            {
+                Show();
+            }
+            else
+            {
+                Hide();
+            }
+        }
+
+
+        private void Show()
+        {
+            gameObject.SetActive(true);
+        }
+        private void Hide()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

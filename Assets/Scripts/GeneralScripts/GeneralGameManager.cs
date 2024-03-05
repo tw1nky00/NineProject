@@ -1,157 +1,160 @@
 using UnityEngine;
 
-/// <summary>
-/// Responsible for game controlling: timers, game start etc.
-/// </summary>
-public class GeneralGameManager : MonoBehaviour
+namespace Scripts.GeneralScripts
 {
-    public static GeneralGameManager Instance { get; private set; }
-
-
     /// <summary>
-    /// The state of game main timer
+    /// Responsible for game controlling: timers, game start etc.
     /// </summary>
-    private enum State
+    public class GeneralGameManager : MonoBehaviour
     {
-        WaitingToStart,
-        CountdownToStart,
-        GamePlaying,
-        GameOver
-    }
+        public static GeneralGameManager Instance { get; private set; }
 
 
-    /// <summary>
-    /// Occurs when the state of the main game timer has changed
-    /// </summary>
-    public event System.EventHandler OnStateChanged;
-    /// <summary>
-    /// Occurs when the game has been paused
-    /// </summary>
-    public event System.EventHandler OnGamePaused;
-    /// <summary>
-    /// Occurs when the game has been unpaused
-    /// </summary>
-    public event System.EventHandler OnGameUnpaused;
-
-
-    [SerializeField] private float waitingToStartTimerValue;
-    [SerializeField] private float countdownToStartTimerValue;
-    [SerializeField] private float gamePlayingTimerValue;
-
-
-    private State _state;
-
-    private float _waitingToStartTimer;
-    private float _countdownToStartTimer;
-    private float _gamePlayingTimer;
-
-    private bool _isGamePaused;
-
-
-    /// <summary>
-    /// Returns true if the game is being played (not being prepared to play or gameover)  
-    /// </summary>
-    public bool IsGamePlaying { get => _state == State.GamePlaying; }
-    /// <summary>
-    /// Returns true if before the game timer is counting down
-    /// </summary>
-    public bool IsCountdown { get => _state == State.CountdownToStart; }
-    /// <summary>
-    /// Returns true if the game is over
-    /// </summary>
-    public bool IsGameOver { get => _state == State.GameOver; }
-    /// <summary>
-    /// The value of countdown timer
-    /// </summary>
-    public float CountdownTimerValue { get => _countdownToStartTimer; }
-    /// <summary>
-    /// Returns normalized value of GamePlaying timer
-    /// </summary>
-    public float GamePlayingTimerValueNormalized { get => _gamePlayingTimer / gamePlayingTimerValue; }
-
-
-    private void Awake()
-    {
-        _waitingToStartTimer = waitingToStartTimerValue;
-        _countdownToStartTimer = countdownToStartTimerValue;
-        _gamePlayingTimer = gamePlayingTimerValue;
-
-        _state = State.WaitingToStart;
-        OnStateChanged?.Invoke(this, System.EventArgs.Empty);
-
-        Debug.Log(_state);
-
-        Instance = this;
-    }
-    private void Start()
-    {
-        GameInputManager.Instance.OnPauseAction += GameInputManager_OnPauseAction;
-    }
-    private void Update()
-    {
-        switch (_state)
+        /// <summary>
+        /// The state of game main timer
+        /// </summary>
+        private enum State
         {
-            case State.WaitingToStart:
-                _waitingToStartTimer -= Time.deltaTime;
-                if (_waitingToStartTimer <= 0f)
-                {
-                    _state = State.CountdownToStart;
-                    OnStateChanged?.Invoke(this, System.EventArgs.Empty);
-
-                    Debug.Log(_state);
-                }
-
-                break;
-
-            case State.CountdownToStart:
-                _countdownToStartTimer -= Time.deltaTime;
-                if (_countdownToStartTimer <= 0f)
-                {
-                    _state = State.GamePlaying;
-                    OnStateChanged?.Invoke(this, System.EventArgs.Empty);
-
-                    Debug.Log(_state);
-                }
-
-                break;
-
-            case State.GamePlaying:
-                _gamePlayingTimer -= Time.deltaTime;
-                if (_gamePlayingTimer <= 0f)
-                {
-                    _state = State.GameOver;
-                    OnStateChanged?.Invoke(this, System.EventArgs.Empty);
-
-                    Debug.Log(_state);
-                }
-
-                break;
-
-            case State.GameOver:
-                break;
+            WaitingToStart,
+            CountdownToStart,
+            GamePlaying,
+            GameOver
         }
-    }
 
 
-    private void GameInputManager_OnPauseAction(object sender, System.EventArgs e)
-    {
-        TogglePauseGame();
-    }
+        /// <summary>
+        /// Occurs when the state of the main game timer has changed
+        /// </summary>
+        public event System.EventHandler OnStateChanged;
+        /// <summary>
+        /// Occurs when the game has been paused
+        /// </summary>
+        public event System.EventHandler OnGamePaused;
+        /// <summary>
+        /// Occurs when the game has been unpaused
+        /// </summary>
+        public event System.EventHandler OnGameUnpaused;
 
 
-    public void TogglePauseGame()
-    {
-        _isGamePaused = !_isGamePaused;
+        [SerializeField] private float waitingToStartTimerValue;
+        [SerializeField] private float countdownToStartTimerValue;
+        [SerializeField] private float gamePlayingTimerValue;
 
-        if (_isGamePaused)
+
+        private State _state;
+
+        private float _waitingToStartTimer;
+        private float _countdownToStartTimer;
+        private float _gamePlayingTimer;
+
+        private bool _isGamePaused;
+
+
+        /// <summary>
+        /// Returns true if the game is being played (not being prepared to play or gameover)  
+        /// </summary>
+        public bool IsGamePlaying { get => _state == State.GamePlaying; }
+        /// <summary>
+        /// Returns true if before the game timer is counting down
+        /// </summary>
+        public bool IsCountdown { get => _state == State.CountdownToStart; }
+        /// <summary>
+        /// Returns true if the game is over
+        /// </summary>
+        public bool IsGameOver { get => _state == State.GameOver; }
+        /// <summary>
+        /// The value of countdown timer
+        /// </summary>
+        public float CountdownTimerValue { get => _countdownToStartTimer; }
+        /// <summary>
+        /// Returns normalized value of GamePlaying timer
+        /// </summary>
+        public float GamePlayingTimerValueNormalized { get => _gamePlayingTimer / gamePlayingTimerValue; }
+
+
+        private void Awake()
         {
-            Time.timeScale = 0f;
-            OnGamePaused?.Invoke(this, System.EventArgs.Empty);
+            _waitingToStartTimer = waitingToStartTimerValue;
+            _countdownToStartTimer = countdownToStartTimerValue;
+            _gamePlayingTimer = gamePlayingTimerValue;
+
+            _state = State.WaitingToStart;
+            OnStateChanged?.Invoke(this, System.EventArgs.Empty);
+
+            Debug.Log(_state);
+
+            Instance = this;
         }
-        else
+        private void Start()
         {
-            Time.timeScale = 1f;
-            OnGameUnpaused?.Invoke(this, System.EventArgs.Empty);
+            GameInputManager.Instance.OnPauseAction += GameInputManager_OnPauseAction;
+        }
+        private void Update()
+        {
+            switch (_state)
+            {
+                case State.WaitingToStart:
+                    _waitingToStartTimer -= Time.deltaTime;
+                    if (_waitingToStartTimer <= 0f)
+                    {
+                        _state = State.CountdownToStart;
+                        OnStateChanged?.Invoke(this, System.EventArgs.Empty);
+
+                        Debug.Log(_state);
+                    }
+
+                    break;
+
+                case State.CountdownToStart:
+                    _countdownToStartTimer -= Time.deltaTime;
+                    if (_countdownToStartTimer <= 0f)
+                    {
+                        _state = State.GamePlaying;
+                        OnStateChanged?.Invoke(this, System.EventArgs.Empty);
+
+                        Debug.Log(_state);
+                    }
+
+                    break;
+
+                case State.GamePlaying:
+                    _gamePlayingTimer -= Time.deltaTime;
+                    if (_gamePlayingTimer <= 0f)
+                    {
+                        _state = State.GameOver;
+                        OnStateChanged?.Invoke(this, System.EventArgs.Empty);
+
+                        Debug.Log(_state);
+                    }
+
+                    break;
+
+                case State.GameOver:
+                    break;
+            }
+        }
+
+
+        private void GameInputManager_OnPauseAction(object sender, System.EventArgs e)
+        {
+            TogglePauseGame();
+        }
+
+
+        public void TogglePauseGame()
+        {
+            _isGamePaused = !_isGamePaused;
+
+            if (_isGamePaused)
+            {
+                Time.timeScale = 0f;
+                OnGamePaused?.Invoke(this, System.EventArgs.Empty);
+            }
+            else
+            {
+                Time.timeScale = 1f;
+                OnGameUnpaused?.Invoke(this, System.EventArgs.Empty);
+            }
         }
     }
 }

@@ -1,16 +1,19 @@
 using UnityEngine;
 
-public class LoadingCallback : MonoBehaviour
+namespace Scripts.MainMenuScripts
 {
-    private bool isFirstUpdate = true;
-
-    private void Update()
+    public class LoadingCallback : MonoBehaviour
     {
-        if (isFirstUpdate)
-        {
-            isFirstUpdate = false;
+        private bool isFirstUpdate = true;
 
-            Loader.LoadingCallback();
+        private void Update()
+        {
+            if (isFirstUpdate)
+            {
+                isFirstUpdate = false;
+
+                Loader.LoadingCallback();
+            }
         }
     }
 }

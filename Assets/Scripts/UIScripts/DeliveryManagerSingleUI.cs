@@ -1,58 +1,63 @@
+using Scripts.KitchenObjectScripts;
+using Scripts.RecipesSO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Responsible for single block in DeliveryManagerUI
-/// </summary>
-public class DeliveryManagerSingleUI : MonoBehaviour
+namespace Scripts.UIScripts
 {
     /// <summary>
-    /// The recipe name
+    /// Responsible for single block in DeliveryManagerUI
     /// </summary>
-    [SerializeField] private TextMeshProUGUI recipeNameText;
-    /// <summary>
-    /// An icon container
-    /// </summary>
-    [SerializeField] private GameObject iconContainer;
-    /// <summary>
-    /// An ingridient icon template
-    /// </summary>
-    [SerializeField] private GameObject ingridientTemplate;
-
-
-    private void Start()
+    public class DeliveryManagerSingleUI : MonoBehaviour
     {
-        this.ingridientTemplate.SetActive(false);
-    }
+        /// <summary>
+        /// The recipe name
+        /// </summary>
+        [SerializeField] private TextMeshProUGUI recipeNameText;
+        /// <summary>
+        /// An icon container
+        /// </summary>
+        [SerializeField] private GameObject iconContainer;
+        /// <summary>
+        /// An ingridient icon template
+        /// </summary>
+        [SerializeField] private GameObject ingridientTemplate;
 
 
-    /// <summary>
-    /// Sets the RecipeSO to be displayed to this single UI block
-    /// </summary>
-    /// <param name="recipe"></param>
-    public void SetRecipeSO(RecipeSO recipe)
-    {
-        this.recipeNameText.text = recipe.RecipeName;
-
-        foreach (Transform icon in iconContainer.transform)
+        private void Start()
         {
-            // Deleting all the icons
-
-            if (icon == this.ingridientTemplate) continue;
-            Destroy(icon.gameObject);
+            this.ingridientTemplate.SetActive(false);
         }
 
 
-        foreach (KitchenObjectSO ingridient in recipe.IngridientsList)
+        /// <summary>
+        /// Sets the RecipeSO to be displayed to this single UI block
+        /// </summary>
+        /// <param name="recipe"></param>
+        public void SetRecipeSO(RecipeSO recipe)
         {
-            // Spawning all the ingridient icons
-            GameObject currentIngridientIconSpawned = Instantiate(this.ingridientTemplate, this.iconContainer.transform);
-            currentIngridientIconSpawned.SetActive(true);
+            this.recipeNameText.text = recipe.RecipeName;
 
-            // Setting an image
-            currentIngridientIconSpawned.GetComponent<Image>().sprite = ingridient.Sprite;
-            currentIngridientIconSpawned.GetComponent<Image>().enabled = true;
+            foreach (Transform icon in iconContainer.transform)
+            {
+                // Deleting all the icons
+
+                if (icon == this.ingridientTemplate) continue;
+                Destroy(icon.gameObject);
+            }
+
+
+            foreach (KitchenObjectSO ingridient in recipe.IngridientsList)
+            {
+                // Spawning all the ingridient icons
+                GameObject currentIngridientIconSpawned = Instantiate(this.ingridientTemplate, this.iconContainer.transform);
+                currentIngridientIconSpawned.SetActive(true);
+
+                // Setting an image
+                currentIngridientIconSpawned.GetComponent<Image>().sprite = ingridient.Sprite;
+                currentIngridientIconSpawned.GetComponent<Image>().enabled = true;
+            }
         }
     }
 }

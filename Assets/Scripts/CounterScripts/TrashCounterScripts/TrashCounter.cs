@@ -1,32 +1,36 @@
+using Scripts.PlayerScripts;
 using UnityEngine;
 
-/// <summary>
-/// The component of trash counter
-/// </summary>
-public class TrashCounter : BaseCounter
+namespace Scripts.CounterScripts.TrashCounterScripts
 {
     /// <summary>
-    /// Occurs when a plate is trashed
+    /// The component of trash counter
     /// </summary>
-    public static event System.EventHandler OnAnyThrownAway;
-
-
-    public static new void ResetStaticData()
+    public class TrashCounter : BaseCounter
     {
-        OnAnyThrownAway = null;
-    }
+        /// <summary>
+        /// Occurs when a plate is trashed
+        /// </summary>
+        public static event System.EventHandler OnAnyThrownAway;
 
 
-    public override void Interact(PlayerController player)
-    {
-        if (player.HasKitchenObject)
+        public static new void ResetStaticData()
         {
-            Destroy(player.KitchenObject.gameObject);
-            OnAnyThrownAway?.Invoke(this, System.EventArgs.Empty);
+            OnAnyThrownAway = null;
         }
-    }
-    public override void InteractAlternate(PlayerController player)
-    {
-        Debug.Log("Does nothing");
+
+
+        public override void Interact(PlayerController player)
+        {
+            if (player.HasKitchenObject)
+            {
+                Destroy(player.KitchenObject.gameObject);
+                OnAnyThrownAway?.Invoke(this, System.EventArgs.Empty);
+            }
+        }
+        public override void InteractAlternate(PlayerController player)
+        {
+            Debug.Log("Does nothing");
+        }
     }
 }

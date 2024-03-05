@@ -1,24 +1,27 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainMenuUI : MonoBehaviour
+namespace Scripts.MainMenuScripts.UIScripts
 {
-    [SerializeField] private Button playButton;
-    [SerializeField] private Button quitButton;
-
-
-    private void Awake()
+    public class MainMenuUI : MonoBehaviour
     {
-        playButton.onClick.AddListener(() =>
-        {
-            Loader.Load(Loader.Scene.Game);
-        });
+        [SerializeField] private Button playButton;
+        [SerializeField] private Button quitButton;
 
-        quitButton.onClick.AddListener(() =>
-        {
-            Application.Quit();
-        });
 
-        Time.timeScale = 1f;
+        private void Awake()
+        {
+            playButton.onClick.AddListener(() =>
+            {
+                Loader.Load(Loader.Scene.Game);
+            });
+
+            quitButton.onClick.AddListener(() =>
+            {
+                Application.Quit();
+            });
+
+            Time.timeScale = 1f;
+        }
     }
 }

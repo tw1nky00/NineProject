@@ -1,31 +1,38 @@
-/// <summary>
-/// The component of delivery counter
-/// </summary>
-public class DeliveryCounter : BaseCounter
+using Scripts.GeneralScripts;
+using Scripts.KitchenObjectScripts;
+using Scripts.PlayerScripts;
+
+namespace Scripts.CounterScripts.DeliveryCounterScripts
 {
     /// <summary>
-    /// The only instance of DeliveryCounter
+    /// The component of delivery counter
     /// </summary>
-    public static DeliveryCounter Instance { get; private set; }
-
-
-    private void Awake()
+    public class DeliveryCounter : BaseCounter
     {
-        Instance = this;
-    }
+        /// <summary>
+        /// The only instance of DeliveryCounter
+        /// </summary>
+        public static DeliveryCounter Instance { get; private set; }
 
 
-    public override void Interact(PlayerController player)
-    {
-        if (player.HasKitchenObject)
+        private void Awake()
         {
-            if (player.KitchenObject.TryGetPlate(out PlateKitchenObject plate))
-            {
-                // Only plates
+            Instance = this;
+        }
 
-                if (DeliveryManager.Instance.TryDeliver(plate))
+
+        public override void Interact(PlayerController player)
+        {
+            if (player.HasKitchenObject)
+            {
+                if (player.KitchenObject.TryGetPlate(out PlateKitchenObject plate))
                 {
-                    plate.DestroySelf();
+                    // Only plates
+
+                    if (DeliveryManager.Instance.TryDeliver(plate))
+                    {
+                        plate.DestroySelf();
+                    }
                 }
             }
         }
