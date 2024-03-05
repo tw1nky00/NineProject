@@ -13,6 +13,9 @@ namespace Scripts.GeneralScripts
     /// </summary>
     public class SoundManager : MonoBehaviour
     {
+        private const string PLAYER_PREFS_SOUND_EFFECTS_VOLUME = "SoundEffectsVolume";
+
+
         /// <summary>
         /// The only instance of SoundManager
         /// </summary>
@@ -22,9 +25,17 @@ namespace Scripts.GeneralScripts
         [SerializeField] private AudioClipReferencesSO audioClipReferencesSO;
 
 
+        /// <summary>
+        /// The volume of sfx
+        /// </summary>
+        public float Volume { get; private set; } = 1f;
+
+
         private void Awake()
         {
             Instance = this;
+
+            Volume = PlayerPrefs.GetFloat(PLAYER_PREFS_SOUND_EFFECTS_VOLUME, 1f);
         }
         private void Start()
         {
@@ -78,7 +89,7 @@ namespace Scripts.GeneralScripts
         /// </summary>
         /// <param name="audioClip">A sound effect to play</param>
         /// <param name="position">A position, the sound is played from</param>
-        /// <param name="volume">The volume of the sound</param>
+        /// <param name="volume">The volumeMultiplier of the sound</param>
         private void PlaySound(AudioClip audioClip, Vector3 position, float volume = 1f)
         {
             AudioSource.PlayClipAtPoint(audioClip, position, volume);
@@ -88,10 +99,10 @@ namespace Scripts.GeneralScripts
         /// </summary>
         /// <param name="audioClipsArray">An array of sfx, one of which is going to be played</param>
         /// <param name="position">A position, the sound is played from</param>
-        /// <param name="volume">The volume of the sound</param>
-        private void PlaySound(AudioClip[] audioClipsArray, Vector3 position, float volume = 1f)
+        /// <param name="volumeMultiplier">The volumeMultiplier of the sound</param>
+        private void PlaySound(AudioClip[] audioClipsArray, Vector3 position, float volumeMultiplier = 1f)
         {
-            PlaySound(audioClipsArray[Random.Range(0, audioClipsArray.Length - 1)], position, volume);
+            PlaySound(audioClipsArray[Random.Range(0, audioClipsArray.Length - 1)], position, Volume * volumeMultiplier);
         }
 
         /// <summary>
@@ -101,6 +112,21 @@ namespace Scripts.GeneralScripts
         public void PlayFootsteps(Vector3 position)
         {
             PlaySound(audioClipReferencesSO.Footstep, position);
+        }
+        /// <summary>
+        /// Increases the volumeMultiplier in 10%. If the volumeMultiplier has got higher than 100%, it's set to 0
+        /// </summary>
+        public void ChangeVolume()
+        {
+            Volume += 0.1f;
+
+            if (Volume > 1f)
+            {
+                Volume = 0f;
+            }
+
+            PlayerPrefs.SetFloat(PLAYER_PREFS_SOUND_EFFECTS_VOLUME, Volume);
+            PlayerPrefs.Save();
         }
     }
 }
