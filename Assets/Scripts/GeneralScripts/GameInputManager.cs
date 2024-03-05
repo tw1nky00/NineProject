@@ -71,15 +71,15 @@ namespace Scripts.GeneralScripts
         }
 
 
-        private void InteractAlternate_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+        private void InteractAlternate_performed(InputAction.CallbackContext obj)
         {
             OnInteractAlternateAction?.Invoke(this, System.EventArgs.Empty);
         }
-        private void Interact_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+        private void Interact_performed(InputAction.CallbackContext obj)
         {
             OnInteractAction?.Invoke(this, System.EventArgs.Empty);
         }
-        private void Pause_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+        private void Pause_performed(InputAction.CallbackContext obj)
         {
             OnPauseAction?.Invoke(this, System.EventArgs.Empty);
         }
