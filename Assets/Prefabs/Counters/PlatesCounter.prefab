@@ -241,8 +241,8 @@ MonoBehaviour:
   counterTopPoint: {fileID: 1782046279064134136}
   plateKitchenObjectSO: {fileID: 11400000, guid: 4889518f8a13d1949a9f473002111578,
     type: 2}
-  spawnPlateTimerMax: 5
-  platesSpawnedAmountMax: 4
+  spawnPlateTimerMax: 10
+  platesSpawnedAmountMax: 3
 --- !u!4 &1782046279064134136 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 559573088274478358, guid: 4d5704991c60ea44e8019ca4c21db5b3,

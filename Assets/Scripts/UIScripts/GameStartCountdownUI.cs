@@ -6,7 +6,13 @@ namespace Scripts.UIScripts
 {
     public class GameStartCountdownUI : MonoBehaviour
     {
+        private const string NUMBER_POPUP_TRIGGER = "NumberPopup";
+
+
         [SerializeField] private TextMeshProUGUI countdownText;
+
+        private Animator _animator;
+        private int previousCountdownNumber;
 
 
         private GeneralGameManager GameManager { get => GeneralGameManager.Instance; }
@@ -14,6 +20,8 @@ namespace Scripts.UIScripts
 
         private void Start()
         {
+            _animator = GetComponent<Animator>();
+
             GameManager.OnStateChanged += GameManager_OnStateChanged;
 
             Hide();
@@ -22,7 +30,15 @@ namespace Scripts.UIScripts
         {
             if (gameObject.activeInHierarchy && GameManager.IsCountdown)
             {
-                countdownText.text = Mathf.Ceil(GameManager.CountdownTimerValue).ToString();
+                var countdownNumber = Mathf.CeilToInt(GameManager.CountdownTimerValue);
+                countdownText.text = countdownNumber.ToString();
+                
+                if (previousCountdownNumber != countdownNumber)
+                {
+                    previousCountdownNumber = countdownNumber;
+                    _animator.SetTrigger(NUMBER_POPUP_TRIGGER);
+                    SoundManager.Instance.PlayCountdownSound();
+                }
             }
         }
 

@@ -26,6 +26,10 @@ namespace Scripts.GeneralScripts
 
 
         /// <summary>
+        /// Occurs when a binding has been rebind
+        /// </summary>
+        public event System.EventHandler OnBindingRebind;
+        /// <summary>
         /// An event that occurs when the interact button is pressed
         /// </summary>
         public event System.EventHandler OnInteractAction;
@@ -182,6 +186,9 @@ namespace Scripts.GeneralScripts
                     onActionRebound();
 
                     PlayerPrefs.SetString(PLAYER_PREFS_BINDINGS, _playerInputActions.SaveBindingOverridesAsJson());
+                    PlayerPrefs.Save();
+
+                    OnBindingRebind?.Invoke(this, System.EventArgs.Empty);
                 })
                 .Start();
         }

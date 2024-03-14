@@ -114,6 +114,21 @@ namespace Scripts.GeneralScripts
             PlaySound(audioClipReferencesSO.Footstep, position);
         }
         /// <summary>
+        /// Plays countdown sounds when number has changed
+        /// </summary>
+        public void PlayCountdownSound()
+        {
+            PlaySound(audioClipReferencesSO.Warning, Vector3.zero);
+        }
+        /// <summary>
+        /// Plays warning sound
+        /// </summary>
+        /// <param name="position">Position, where the sound should be played from</param>
+        public void PlayWarningSound(Vector3 position)
+        {
+            PlaySound(audioClipReferencesSO.Warning, position);
+        }
+        /// <summary>
         /// Increases the volumeMultiplier in 10%. If the volumeMultiplier has got higher than 100%, it's set to 0
         /// </summary>
         public void ChangeVolume()

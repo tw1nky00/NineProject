@@ -36,14 +36,12 @@ namespace Scripts.GeneralScripts
         public event System.EventHandler OnGameUnpaused;
 
 
-        [SerializeField] private float waitingToStartTimerValue;
         [SerializeField] private float countdownToStartTimerValue;
         [SerializeField] private float gamePlayingTimerValue;
 
 
         private State _state;
 
-        private float _waitingToStartTimer;
         private float _countdownToStartTimer;
         private float _gamePlayingTimer;
 
@@ -74,7 +72,6 @@ namespace Scripts.GeneralScripts
 
         private void Awake()
         {
-            _waitingToStartTimer = waitingToStartTimerValue;
             _countdownToStartTimer = countdownToStartTimerValue;
             _gamePlayingTimer = gamePlayingTimerValue;
 
@@ -88,21 +85,13 @@ namespace Scripts.GeneralScripts
         private void Start()
         {
             GameInputManager.Instance.OnPauseAction += GameInputManager_OnPauseAction;
+            GameInputManager.Instance.OnInteractAction += GameInputManager_OnInteractAction;
         }
         private void Update()
         {
             switch (_state)
             {
                 case State.WaitingToStart:
-                    _waitingToStartTimer -= Time.deltaTime;
-                    if (_waitingToStartTimer <= 0f)
-                    {
-                        _state = State.CountdownToStart;
-                        OnStateChanged?.Invoke(this, System.EventArgs.Empty);
-
-                        Debug.Log(_state);
-                    }
-
                     break;
 
                 case State.CountdownToStart:
@@ -138,6 +127,14 @@ namespace Scripts.GeneralScripts
         private void GameInputManager_OnPauseAction(object sender, System.EventArgs e)
         {
             TogglePauseGame();
+        }
+        private void GameInputManager_OnInteractAction(object sender, System.EventArgs e)
+        {
+            if (_state == State.WaitingToStart)
+            {
+                _state = State.CountdownToStart;
+                OnStateChanged?.Invoke(this, System.EventArgs.Empty);
+            }
         }
 
 
