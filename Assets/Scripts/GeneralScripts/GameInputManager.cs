@@ -26,6 +26,10 @@ namespace Scripts.GeneralScripts
 
 
         /// <summary>
+        /// Occurs when a binding has been rebind
+        /// </summary>
+        public event System.EventHandler OnBindingRebind;
+        /// <summary>
         /// An event that occurs when the interact button is pressed
         /// </summary>
         public event System.EventHandler OnInteractAction;
@@ -71,15 +75,15 @@ namespace Scripts.GeneralScripts
         }
 
 
-        private void InteractAlternate_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+        private void InteractAlternate_performed(InputAction.CallbackContext obj)
         {
             OnInteractAlternateAction?.Invoke(this, System.EventArgs.Empty);
         }
-        private void Interact_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+        private void Interact_performed(InputAction.CallbackContext obj)
         {
             OnInteractAction?.Invoke(this, System.EventArgs.Empty);
         }
-        private void Pause_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+        private void Pause_performed(InputAction.CallbackContext obj)
         {
             OnPauseAction?.Invoke(this, System.EventArgs.Empty);
         }
@@ -182,6 +186,9 @@ namespace Scripts.GeneralScripts
                     onActionRebound();
 
                     PlayerPrefs.SetString(PLAYER_PREFS_BINDINGS, _playerInputActions.SaveBindingOverridesAsJson());
+                    PlayerPrefs.Save();
+
+                    OnBindingRebind?.Invoke(this, System.EventArgs.Empty);
                 })
                 .Start();
         }

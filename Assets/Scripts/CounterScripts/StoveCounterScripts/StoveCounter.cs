@@ -49,6 +49,9 @@ namespace Scripts.CounterScripts.StoveCounterScripts
         private float _burningTimer;
 
 
+        public bool IsFried { get => _state == State.Fried; }
+
+
         private void Start()
         {
             _state = State.Idle;
@@ -194,7 +197,6 @@ namespace Scripts.CounterScripts.StoveCounterScripts
                 }
             }
         }
-
 
         private bool HasRecipeWithInput(KitchenObjectSO input)
         {

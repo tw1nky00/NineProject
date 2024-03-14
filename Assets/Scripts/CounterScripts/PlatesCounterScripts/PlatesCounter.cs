@@ -1,3 +1,4 @@
+using Scripts.GeneralScripts;
 using Scripts.KitchenObjectScripts;
 using Scripts.PlayerScripts;
 using UnityEngine;
@@ -39,7 +40,8 @@ namespace Scripts.CounterScripts.PlatesCounterScripts
         private void Update()
         {
             spawnPlateTimer += Time.deltaTime;
-            if (spawnPlateTimer >= spawnPlateTimerMax)
+            if (spawnPlateTimer >= spawnPlateTimerMax 
+                && (GeneralGameManager.Instance.IsGamePlaying || GeneralGameManager.Instance.IsCountdown))
             {
                 spawnPlateTimer = 0f;
 

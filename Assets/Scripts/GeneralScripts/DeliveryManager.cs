@@ -67,7 +67,8 @@ namespace Scripts.GeneralScripts
         }
         private void Update()
         {
-            if (_waitedRecipesSOList.Count < waitedRecipesMax)
+            if ((GeneralGameManager.Instance.IsGamePlaying || GeneralGameManager.Instance.IsCountdown)
+                && _waitedRecipesSOList.Count < waitedRecipesMax)
             {
                 _spawnTimer -= Time.deltaTime;
                 if (_spawnTimer <= 0)
