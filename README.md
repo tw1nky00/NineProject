@@ -1,3 +1,4 @@
-The game for my school project
+Репозиторий игры для проекта по теме "Объектно-ориентированное программирование в разработке игр"
 
-An archive with a built game v1.1: [Click Here](https://github.com/tw1nky00/NineProject/blob/master/KitchenChaos_v1.1.rar) (Use Ctrl + Shift + S hotkey to download an archive or do it just by pressing "..." button -> "Download")
+Архив с готовой игрой v1.1: [Click Here](https://github.com/tw1nky00/NineProject/blob/master/KitchenChaos_v1.1.rar) (Версия игры, продемонстрированная в презентации)
+Чтобы скачать архив, перейдите по ссылке и используйте горячую клавишу Ctrl + Shift + S или нажмите кнопку "..." -> "Download"
